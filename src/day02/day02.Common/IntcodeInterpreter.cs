@@ -8,25 +8,25 @@ namespace day02.Common
         private const int TERMINATING_VALUE = 99;
         public static IList<int> Run(IList<int> instructions)
         {
-            var offset = 0;
-            var opcode = instructions[offset];
+            var instructionPointer = 0;
+            var opcode = instructions[instructionPointer];
 
             while(opcode != TERMINATING_VALUE)
             {
-                var position1 = instructions[++offset];
-                var position2 = instructions[++offset];
-                var position3 = instructions[++offset];
+                var parameter1 = instructions[++instructionPointer];
+                var parameter2 = instructions[++instructionPointer];
+                var parameter3 = instructions[++instructionPointer];
 
-                System.Diagnostics.Debug.WriteLine($"opcode = {opcode}, pos1 = {position1}, pos2 = {position2}, pos3 = {position3}");
+                System.Diagnostics.Debug.WriteLine($"opcode = {opcode}, param1 = {parameter1}, param2 = {parameter2}, param3 = {parameter3}");
 
                 var runner = OpcodeRunnerFactory.Generate(opcode);
-                var result = runner.Run(instructions[position1], instructions[position2]);
+                var result = runner.Run(instructions[parameter1], instructions[parameter2]);
 
                 System.Diagnostics.Debug.WriteLine($"Using IOpcodeRunner of type {runner.GetType().ToString()}");
 
-                instructions[position3] = result;
+                instructions[parameter3] = result;
 
-                opcode = instructions[++offset];
+                opcode = instructions[++instructionPointer];
                 System.Diagnostics.Debug.WriteLine($"opcode = {opcode}");
             }
 
